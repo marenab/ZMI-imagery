@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<title>Comparing the ZMI Drone imagery</title>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <!-- gl js javascript library -->
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.js'></script>
+    <!-- mapbox style sheet -->
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+        body { margin:0; padding:0; }
+        /*map element*/
+        #map { position:absolute; top:0; bottom:0; width:100%; }
+    </style>
+</head>
+<body>
+
+<style>
+body {
+    overflow: hidden;
+}
+body * {
+   -webkit-touch-callout: none;
+     -webkit-user-select: none;
+        -moz-user-select: none;
+         -ms-user-select: none;
+             user-select: none;
+}
+/*map class*/
+.map {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+}
+.container {
+    position: absolute;
+}
+.topright {
+    position: absolute;
+    top: 8px;
+    right: 160px;
+    font-size: 18px;
+}
+img { 
+    width: 10%;
+    height: auto;
+    opacity: 1;
+}
+</style>
+<script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.js'></script>
+<link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-compare/v0.1.0/mapbox-gl-compare.css' type='text/css' />
+
+<div id='drone' class='map'></div>
+<div id='satellite' class='map'></div>
+<script>
+mapboxgl.accessToken = 'pk.eyJ1IjoibWFyZW5hYiIsImEiOiJjajV2ajVyZXUwMnN3MzNwNzR3Ynk2cjIyIn0.sI-ynx23EEdpZFbEDu6qjA';
+var bounds = [
+    [39.179649353027344,-6.236807564996636], // Southwest coordinates
+    [39.26445007324218,-6.0896907733544134]  // Northeast coordinates
+];
+var drone = new mapboxgl.Map({
+    container: 'drone',
+    style: 'mapbox://styles/pratikyadav/cjldke8fv3c3r2row6hvk5k7z',
+    center: [39.200077056884766,-6.165472962780473],
+    zoom: 17,
+    maxBounds: bounds
+});
+var satellite = new mapboxgl.Map({
+    container: 'satellite',
+    style: 'mapbox://styles/mapbox/satellite-v9',
+    center: [39.200077056884766,-6.165472962780473],
+    zoom: 17,
+    maxBounds: bounds
+});
+var map = new mapboxgl.Compare(drone, satellite, {
+    // Set this to enable comparing two maps by mouse movement:
+    // mousemove: true
+});   
+</script>
+
+<!--<div class="container">
+  <img src="zmi-logo.png" width="1000" height="300">
+</div>-->
+</body>
+</html>
